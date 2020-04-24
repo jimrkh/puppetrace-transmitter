@@ -8,6 +8,8 @@ require("setup").start()
 
 -- Apps modules
 switchUdp = require("switchUdp")
+heartbeat = require("heartbeat")
 
 -- start apps
 switchUdp.start()
+heartbeat.start()
