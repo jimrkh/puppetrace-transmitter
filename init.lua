@@ -2,6 +2,8 @@
 
 config = require("config")
 
+dofile("credentials.lua")
+
 print("Starting ESP-"..config.CLIENT_ID.."...")
 
 require("setup").start()
