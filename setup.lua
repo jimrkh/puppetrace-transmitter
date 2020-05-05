@@ -2,27 +2,30 @@
 
 local module = {}
 
-module.connected = false
-
+connected = false
+LapTrackerTK = false
 
 local function wifi_wait_ip()
     print("Waiting for IP address...")
     if wifi.sta.getip() == nil then 
-        module.connected = false
+        connected = false
     else
         IPtimer:stop()
-        print("WiFi ready: " .. wifi.sta.getip())
-        module.connected = true
+        print("WiFi ready Local IP: " .. wifi.sta.getip())
+        BroadcastIP = wifi.sta.getbroadcast()
+        print("Broadcast IP: " .. BroadcastIP)
+        connected = true
+        socket = net.createUDPSocket()
+       
     end 
 end
 
 local function wifi_start(aps)
     if aps then
         for key,value in pairs(aps) do
-           if config.SSID and config.SSID[key] then
+           if SSID and SSID[key] then
                 print("Connecting to " .. key .. " network.")
-                
-                wifi.sta.config({ssid=key, pwd=config.SSID[key]})
+                wifi.sta.config({ssid=key, pwd=SSID[key]})
                 wifi.sta.connect()
                 config.SSID = nil  -- more secure and save memory
                 IPtimer:start()

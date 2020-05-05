@@ -7,7 +7,9 @@ local function sendHB()
 
     print("Beat "..napeti)
     -- Send packet
-    socket:send(config.UDP_SERVER_PORT, config.UDP_SERVER_HOST,"BEAT_"..config.CLIENT_ID.."_"..napeti)
+    if connected == true then
+        socket:send(config.UDP_SERVER_PORT, BroadcastIP,"BEAT_"..config.CLIENT_ID.."_"..napeti)
+    end        
     -- --
 
 end
